@@ -6,6 +6,7 @@ import { Card, CardContent, CardFooter, CardHeader } from '../ui/card';
 import { FaGithub } from 'react-icons/fa';
 
 interface Props {
+  topHeader: string;
   children: React.ReactNode;
   headerLabel: string;
   backButtonLabel: string;
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const CardWrapper = ({
+  topHeader,
   backButtonHref,
   backButtonLabel,
   children,
@@ -24,7 +26,7 @@ const CardWrapper = ({
     <Card className="w-[400px] shadow-md bg-primary text-secondary">
       <CardHeader>
         <div className="w-full flex flex-col gap-y-6 items-center">
-          <h1 className="text-3xl font-semibold">Login &#x1F512;</h1>
+          <h1 className="text-3xl font-semibold">{topHeader}</h1>
           <p className="text-muted-foreground text-sm">{headerLabel}</p>
         </div>
       </CardHeader>

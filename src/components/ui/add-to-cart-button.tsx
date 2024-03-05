@@ -15,7 +15,6 @@ const AddToCartButton = ({ productId, isInCart }: Props) => {
   const [pending, startTransition] = React.useTransition();
   const session = useSession();
   const userId = session.data?.user?.id;
-  console.log(isInCart);
   async function addToCartHandler() {
     startTransition(async () => {
       if (productId && userId) await addToCart(productId, userId);

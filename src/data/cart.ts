@@ -34,3 +34,22 @@ export const getCartCount = unstable_cache(
   },
   ['cart-count']
 );
+
+export async function getUserCart(userId: string) {
+  try {
+    const userWithCart = await prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        cartItems: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    });
+    if (!userWithCart) throw 'User Not Found!';
+    return userWithCart.cartItems;
+  } catch (error) {
+    throw error;
+  }
+}

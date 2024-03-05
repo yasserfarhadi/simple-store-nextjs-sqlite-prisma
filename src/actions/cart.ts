@@ -33,3 +33,50 @@ export async function addToCart(productId: string, userId: string) {
     throw error;
   }
 }
+
+export async function changeQuantity(
+  userId: string,
+  productId: string,
+  quantity: number
+) {
+  if (!userId || !productId || !quantity)
+    throw 'userId, productId and quantity is required!';
+
+  try {
+    const existingUser = await getUserById(userId);
+    if (!existingUser) throw 'No User Found';
+
+    const existingCartItem = await getCartByUserAndProducId(
+      existingUser.id,
+      productId
+    );
+    if (!existingCartItem) throw 'Cart Item Not Found!';
+
+    if (existingCartItem.quantity === quantity) return;
+
+    await prisma.cartItem.update({
+      where: { id: existingCartItem.id },
+      data: { quantity },
+    });
+    revalidatePath('/cart');
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function removeFromCart(userId: string, cartItemId: string) {
+  if (!userId || !cartItemId) throw 'CartItemId and UserId is required';
+
+  try {
+    const existingUser = await getUserById(userId);
+    if (!existingUser) throw 'No User Found';
+
+    await prisma.cartItem.delete({
+      where: { id: cartItemId, userId: existingUser.id },
+    });
+  } catch (error) {
+    throw error;
+  }
+
+  revalidatePath('/cart');
+}

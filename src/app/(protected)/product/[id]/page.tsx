@@ -22,7 +22,6 @@ const ProductDetail = async ({ params: { id } }: Props) => {
   let isInCart = false;
   if (userId) {
     const cartItem = await getCartByUserAndProducId(userId, id);
-    console.log({ cartItem, id, userId });
     isInCart = !!cartItem;
   }
 

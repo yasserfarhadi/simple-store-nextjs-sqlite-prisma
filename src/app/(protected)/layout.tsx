@@ -3,6 +3,7 @@ import React from 'react';
 import { auth } from '../../../auth';
 import CartButton from '@/components/cart-button';
 import { getCartCount } from '@/data/cart';
+import Link from 'next/link';
 
 const ProtectedLayout: React.FC<React.PropsWithChildren> = async ({
   children,
@@ -17,9 +18,14 @@ const ProtectedLayout: React.FC<React.PropsWithChildren> = async ({
     <div className="bg-primary text-secondary min-h-full">
       <header className="h-20 border-b-2 border-muted-foreground">
         <nav className="w-full h-full flex items-center justify-between p-10">
-          <React.Suspense>
-            <CartButton cartCount={cartCount} />
-          </React.Suspense>
+          <div className="flex items-center gap-6">
+            <React.Suspense>
+              <CartButton cartCount={cartCount} />
+            </React.Suspense>
+            <Link href="/store" className="text-3xl font-extrabold">
+              STORE
+            </Link>
+          </div>
           <div className="space-x-2">
             <span className="font-semibold tracking-wider">
               {session?.user?.name}

@@ -20,13 +20,17 @@ export const register = async (values: z.infer<typeof registerSchema>) => {
 
   if (existingUser) return { error: 'Email already in use!' };
 
-  await prisma.user.create({
-    data: {
-      name,
-      email,
-      password: hashedPassword,
-    },
-  });
+  try {
+    await prisma.user.create({
+      data: {
+        name,
+        email,
+        password: hashedPassword,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
 
   redirect('/auth/login');
 };

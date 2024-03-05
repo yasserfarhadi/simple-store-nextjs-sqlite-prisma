@@ -6,7 +6,6 @@ import { DEFAULT_LOGIN_REDIRECT } from '../../routes';
 import { AuthError } from 'next-auth';
 
 export const login = async (values: z.infer<typeof loginSchema>) => {
-  await new Promise((r) => setTimeout(r, 500));
   const validatedValues = loginSchema.safeParse(values);
   if (!validatedValues.success) {
     return { error: 'Invalid Fields' };

@@ -33,11 +33,28 @@ model Account {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   password      String?
   image         String?
   accounts      Account[]
+  cartItems     CartItem[]
+}
+
+model CartItem {
+  id        String @id @default(cuid())
+  quantity  Int
+  productId String
+  user      User   @relation(fields: [userId], references: [id])
+  userId    String
+}
+
+model Product {
+  id    String @id @default(cuid())
+  brand String
+  title String
+  price Int
+  image String
 }

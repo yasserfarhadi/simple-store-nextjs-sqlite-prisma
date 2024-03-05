@@ -7,7 +7,6 @@ import { prisma } from '@/lib/db';
 import { getUserByEmail } from '@/data/user';
 
 export const register = async (values: z.infer<typeof registerSchema>) => {
-  await new Promise((r) => setTimeout(r, 2000));
   const validatedValues = registerSchema.safeParse(values);
   if (!validatedValues.success) {
     return { error: 'Invalid Fields' };

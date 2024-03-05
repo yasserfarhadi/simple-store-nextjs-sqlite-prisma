@@ -33,7 +33,7 @@ const LoginForm = () => {
     startTransintion(async () => {
       form.clearErrors();
       const data = await login(values);
-      form.setError('root', { message: data.error });
+      form.setError('root', { message: data?.error });
     });
   }
 

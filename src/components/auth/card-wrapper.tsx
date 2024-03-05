@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '../ui/card';
 import { FaGithub } from 'react-icons/fa';
+import { signIn } from 'next-auth/react';
+import { DEFAULT_LOGIN_REDIRECT } from '../../../routes';
 
 interface Props {
   topHeader: string;
@@ -22,6 +24,11 @@ const CardWrapper = ({
   headerLabel,
   showSocial,
 }: Props) => {
+  function socialHandler() {
+    signIn('github', {
+      callbackUrl: DEFAULT_LOGIN_REDIRECT,
+    });
+  }
   return (
     <Card className="w-[400px] shadow-md bg-primary text-secondary">
       <CardHeader>
@@ -37,7 +44,7 @@ const CardWrapper = ({
             size="lg"
             className="w-full bg-primary text-secondary space-x-3 hover:bg-slate-800 hover:text-secondary"
             variant="outline"
-            onClick={() => {}}
+            onClick={socialHandler}
           >
             <FaGithub className="h-5 w-5" />{' '}
             <span className=" tracking-wider">Github</span>
